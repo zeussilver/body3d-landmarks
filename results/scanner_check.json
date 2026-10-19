@@ -1,0 +1,86 @@
+{
+ "A1_ray_cast": {
+  "bodies": 5,
+  "views": 8,
+  "pixels_compared": 248396,
+  "median_abs_mm": 2.220446049250313e-13,
+  "within_3mm_pct": 100.0,
+  "max_abs_mm": 2.5757174171303632e-11,
+  "pixels_hit_by_only_one": 0
+ },
+ "A1b_render_ms_per_body": 26.2,
+ "A2_observability": {
+  "bodies": 2000,
+  "definition": "observable = depth-visible within 1 cm, or within 1 px of the silhouette",
+  "pct_bodies_all_landmarks_observable_in_2plus_views": 76.4,
+  "pct_bodies_short_per_landmark": {
+   "vertex": 0.0,
+   "cervicale": 0.0,
+   "acromion_l": 0.0,
+   "acromion_r": 0.0,
+   "bust_point_l": 0.0,
+   "bust_point_r": 0.0,
+   "waist_front": 0.0,
+   "waist_back": 0.0,
+   "waist_side_l": 0.0,
+   "waist_side_r": 0.0,
+   "buttock_point": 0.0,
+   "crotch": 23.6,
+   "knee_l": 0.0,
+   "knee_r": 0.0,
+   "ankle_l": 0.0,
+   "ankle_r": 0.0
+  },
+  "pct_bodies_short_per_bmi_band": {
+   "<18.5": 2.5,
+   "18.5-25": 5.0,
+   "25-30": 23.5,
+   "30-35": 38.25,
+   ">=35": 48.75
+  },
+  "mean_observable_views": {
+   "vertex": 8.0,
+   "cervicale": 4.41,
+   "acromion_l": 6.05,
+   "acromion_r": 6.07,
+   "bust_point_l": 4.33,
+   "bust_point_r": 4.34,
+   "waist_front": 3.64,
+   "waist_back": 3.7,
+   "waist_side_l": 4.42,
+   "waist_side_r": 4.44,
+   "buttock_point": 4.49,
+   "crotch": 1.95,
+   "knee_l": 4.74,
+   "knee_r": 4.75,
+   "ankle_l": 4.95,
+   "ankle_r": 4.96
+  },
+  "mean_depth_visible_views": {
+   "vertex": 0.97,
+   "cervicale": 3.24,
+   "acromion_l": 2.78,
+   "acromion_r": 2.75,
+   "bust_point_l": 3.35,
+   "bust_point_r": 3.33,
+   "waist_front": 3.26,
+   "waist_back": 3.14,
+   "waist_side_l": 2.9,
+   "waist_side_r": 2.91,
+   "buttock_point": 3.42,
+   "crotch": 0.91,
+   "knee_l": 3.41,
+   "knee_r": 3.4,
+   "ankle_l": 3.4,
+   "ankle_r": 3.42
+  }
+ },
+ "scanner": {
+  "views": 8,
+  "image": [
+   256,
+   160
+  ],
+  "pixel_mm": 8.5
+ }
+}

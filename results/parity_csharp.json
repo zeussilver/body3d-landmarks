@@ -1,0 +1,36 @@
+{
+  "data": "SYNTHETIC",
+  "tolerances": {
+    "depth_mm": 1,
+    "depth_pixel_fraction": 0.999,
+    "landmark_mm": 1,
+    "girth_mm": 0.1
+  },
+  "onnx_vs_torch_max_abs": 1.0013580322265625E-05,
+  "scans": [
+    {
+      "stl": "s1_week00.stl",
+      "depth_pixels_within_tol": 1,
+      "coverage_mismatches": 0,
+      "depth_max_abs_mm": 5.9604010393954354E-05,
+      "landmark_max_abs_mm": 0.0007984286774447339,
+      "girth_max_abs_mm": 6.325191770883976E-05
+    },
+    {
+      "stl": "s3_week08.stl",
+      "depth_pixels_within_tol": 1,
+      "coverage_mismatches": 0,
+      "depth_max_abs_mm": 5.9603692648124706E-05,
+      "landmark_max_abs_mm": 0.003215901219311488,
+      "girth_max_abs_mm": 4.699150213127723E-05
+    },
+    {
+      "stl": "s4_week24.stl",
+      "depth_pixels_within_tol": 1,
+      "coverage_mismatches": 0,
+      "depth_max_abs_mm": 5.9603871171987066E-05,
+      "landmark_max_abs_mm": 0.0010365907210565552,
+      "girth_max_abs_mm": 4.296746487852943E-05
+    }
+  ]
+}

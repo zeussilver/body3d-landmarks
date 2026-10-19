@@ -1,0 +1,459 @@
+{
+ "run": "e3_s0",
+ "data": "SYNTHETIC (Anny bodies, simulated turntable scans)",
+ "model": "per-view U-Net (heatmaps + confidence) + weighted LS triangulation",
+ "train_distribution": "narrow",
+ "train_bmi_range": [
+  18.5,
+  27.0
+ ],
+ "train_bodies": 8000,
+ "epochs": 10,
+ "seed": 0,
+ "batch_bodies": 8,
+ "lr": 0.002,
+ "augment": null,
+ "alt_meshes": "extrap",
+ "best_epoch": 9,
+ "best_val_mm": 2.730993989062222,
+ "train_minutes": 55.6,
+ "params": 1956944,
+ "condition": "e3",
+ "overall": {
+  "n": 2000,
+  "mean_mm": 2.9798369129966975,
+  "ci95_mm": [
+   2.943520454621762,
+   3.0185134040407724
+  ],
+  "median_mm": 2.7175815401309817,
+  "pck10": 99.875,
+  "pck20": 99.996875,
+  "per_landmark_mean_mm": {
+   "vertex": 3.31,
+   "cervicale": 3.45,
+   "acromion_l": 3.6,
+   "acromion_r": 3.55,
+   "bust_point_l": 3.15,
+   "bust_point_r": 3.11,
+   "waist_front": 3.32,
+   "waist_back": 3.03,
+   "waist_side_l": 3.13,
+   "waist_side_r": 3.09,
+   "buttock_point": 3.21,
+   "crotch": 3.14,
+   "knee_l": 2.52,
+   "knee_r": 2.53,
+   "ankle_l": 1.79,
+   "ankle_r": 1.75
+  }
+ },
+ "per_landmark": {
+  "vertex": {
+   "mean_mm": 3.3064640082178247,
+   "median_mm": 3.080437924234359,
+   "pck10": 100.0,
+   "pck20": 100.0
+  },
+  "cervicale": {
+   "mean_mm": 3.4526927769721225,
+   "median_mm": 3.252180930641895,
+   "pck10": 99.8,
+   "pck20": 100.0
+  },
+  "acromion_l": {
+   "mean_mm": 3.6009132825762507,
+   "median_mm": 3.317353565924689,
+   "pck10": 99.5,
+   "pck20": 100.0
+  },
+  "acromion_r": {
+   "mean_mm": 3.553642600725002,
+   "median_mm": 3.2865268909739207,
+   "pck10": 99.7,
+   "pck20": 100.0
+  },
+  "bust_point_l": {
+   "mean_mm": 3.150589523265891,
+   "median_mm": 2.8822656094845995,
+   "pck10": 99.9,
+   "pck20": 100.0
+  },
+  "bust_point_r": {
+   "mean_mm": 3.1123909525084263,
+   "median_mm": 2.925039073281373,
+   "pck10": 100.0,
+   "pck20": 100.0
+  },
+  "waist_front": {
+   "mean_mm": 3.3189306017983897,
+   "median_mm": 3.133590305594802,
+   "pck10": 99.95,
+   "pck20": 100.0
+  },
+  "waist_back": {
+   "mean_mm": 3.029839071674171,
+   "median_mm": 2.7952806584636125,
+   "pck10": 99.8,
+   "pck20": 100.0
+  },
+  "waist_side_l": {
+   "mean_mm": 3.1278907042879545,
+   "median_mm": 2.939892175969438,
+   "pck10": 100.0,
+   "pck20": 100.0
+  },
+  "waist_side_r": {
+   "mean_mm": 3.0905388282241066,
+   "median_mm": 2.903327678928446,
+   "pck10": 100.0,
+   "pck20": 100.0
+  },
+  "buttock_point": {
+   "mean_mm": 3.2050364931395463,
+   "median_mm": 2.991162555949061,
+   "pck10": 99.7,
+   "pck20": 100.0
+  },
+  "crotch": {
+   "mean_mm": 3.136051807591024,
+   "median_mm": 2.879011388125431,
+   "pck10": 99.8,
+   "pck20": 100.0
+  },
+  "knee_l": {
+   "mean_mm": 2.520281883163525,
+   "median_mm": 2.3411821526118732,
+   "pck10": 99.95,
+   "pck20": 100.0
+  },
+  "knee_r": {
+   "mean_mm": 2.5323591385702304,
+   "median_mm": 2.376099792478212,
+   "pck10": 99.9,
+   "pck20": 99.95
+  },
+  "ankle_l": {
+   "mean_mm": 1.7915845541872295,
+   "median_mm": 1.6550258654955816,
+   "pck10": 100.0,
+   "pck20": 100.0
+  },
+  "ankle_r": {
+   "mean_mm": 1.748184381045474,
+   "median_mm": 1.6309350668422045,
+   "pck10": 100.0,
+   "pck20": 100.0
+  }
+ },
+ "strata": {
+  "bmi": {
+   "<18.5": {
+    "n": 400,
+    "mean_mm": 3.3590363083557886,
+    "ci95_mm": [
+     3.266250370782295,
+     3.4563125861241595
+    ],
+    "median_mm": 3.059584512809076,
+    "pck10": 99.59375,
+    "pck20": 99.984375,
+    "per_landmark_mean_mm": {
+     "vertex": 3.39,
+     "cervicale": 3.73,
+     "acromion_l": 4.15,
+     "acromion_r": 4.04,
+     "bust_point_l": 3.46,
+     "bust_point_r": 3.3,
+     "waist_front": 3.59,
+     "waist_back": 3.75,
+     "waist_side_l": 3.45,
+     "waist_side_r": 3.42,
+     "buttock_point": 3.6,
+     "crotch": 3.64,
+     "knee_l": 3.26,
+     "knee_r": 3.23,
+     "ankle_l": 1.9,
+     "ankle_r": 1.86
+    }
+   },
+   "18.5-25": {
+    "n": 400,
+    "mean_mm": 2.691038668227327,
+    "ci95_mm": [
+     2.6105338181920668,
+     2.7753771941074397
+    ],
+    "median_mm": 2.455158610722565,
+    "pck10": 99.96875,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.23,
+     "cervicale": 3.18,
+     "acromion_l": 3.22,
+     "acromion_r": 3.26,
+     "bust_point_l": 2.78,
+     "bust_point_r": 2.91,
+     "waist_front": 3.02,
+     "waist_back": 2.72,
+     "waist_side_l": 2.87,
+     "waist_side_r": 2.87,
+     "buttock_point": 2.76,
+     "crotch": 2.59,
+     "knee_l": 2.2,
+     "knee_r": 2.13,
+     "ankle_l": 1.68,
+     "ankle_r": 1.62
+    }
+   },
+   "25-30": {
+    "n": 400,
+    "mean_mm": 2.7885322484943686,
+    "ci95_mm": [
+     2.7068405747880657,
+     2.8686752611937116
+    ],
+    "median_mm": 2.557759571166307,
+    "pck10": 99.96875,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.39,
+     "cervicale": 3.34,
+     "acromion_l": 3.43,
+     "acromion_r": 3.27,
+     "bust_point_l": 2.92,
+     "bust_point_r": 2.93,
+     "waist_front": 3.0,
+     "waist_back": 2.66,
+     "waist_side_l": 2.97,
+     "waist_side_r": 2.93,
+     "buttock_point": 2.83,
+     "crotch": 2.9,
+     "knee_l": 2.26,
+     "knee_r": 2.3,
+     "ankle_l": 1.72,
+     "ankle_r": 1.76
+    }
+   },
+   "30-35": {
+    "n": 400,
+    "mean_mm": 2.903168000214052,
+    "ci95_mm": [
+     2.828124784023689,
+     2.9799276238536225
+    ],
+    "median_mm": 2.6466546843608874,
+    "pck10": 99.953125,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.21,
+     "cervicale": 3.39,
+     "acromion_l": 3.47,
+     "acromion_r": 3.47,
+     "bust_point_l": 3.06,
+     "bust_point_r": 3.03,
+     "waist_front": 3.29,
+     "waist_back": 2.89,
+     "waist_side_l": 3.03,
+     "waist_side_r": 3.0,
+     "buttock_point": 3.19,
+     "crotch": 3.14,
+     "knee_l": 2.34,
+     "knee_r": 2.44,
+     "ankle_l": 1.76,
+     "ankle_r": 1.74
+    }
+   },
+   ">=35": {
+    "n": 400,
+    "mean_mm": 3.1574093396919545,
+    "ci95_mm": [
+     3.0644004009843706,
+     3.2407413969652845
+    ],
+    "median_mm": 2.8922164393413037,
+    "pck10": 99.890625,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.31,
+     "cervicale": 3.62,
+     "acromion_l": 3.74,
+     "acromion_r": 3.74,
+     "bust_point_l": 3.52,
+     "bust_point_r": 3.41,
+     "waist_front": 3.7,
+     "waist_back": 3.12,
+     "waist_side_l": 3.32,
+     "waist_side_r": 3.23,
+     "buttock_point": 3.64,
+     "crotch": 3.41,
+     "knee_l": 2.54,
+     "knee_r": 2.57,
+     "ankle_l": 1.9,
+     "ankle_r": 1.75
+    }
+   }
+  },
+  "sex": {
+   "male": {
+    "n": 1000,
+    "mean_mm": 3.0982516591072953,
+    "ci95_mm": [
+     3.0415055365614942,
+     3.1530026846184773
+    ],
+    "median_mm": 2.8487510261031956,
+    "pck10": 99.85000000000001,
+    "pck20": 99.99375,
+    "per_landmark_mean_mm": {
+     "vertex": 3.37,
+     "cervicale": 3.39,
+     "acromion_l": 3.8,
+     "acromion_r": 3.75,
+     "bust_point_l": 3.35,
+     "bust_point_r": 3.26,
+     "waist_front": 3.53,
+     "waist_back": 3.22,
+     "waist_side_l": 3.23,
+     "waist_side_r": 3.13,
+     "buttock_point": 3.31,
+     "crotch": 3.34,
+     "knee_l": 2.56,
+     "knee_r": 2.66,
+     "ankle_l": 1.83,
+     "ankle_r": 1.83
+    }
+   },
+   "female": {
+    "n": 1000,
+    "mean_mm": 2.861422166886101,
+    "ci95_mm": [
+     2.806039167963298,
+     2.9205000931289113
+    ],
+    "median_mm": 2.58498450219746,
+    "pck10": 99.9,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.24,
+     "cervicale": 3.51,
+     "acromion_l": 3.4,
+     "acromion_r": 3.36,
+     "bust_point_l": 2.95,
+     "bust_point_r": 2.96,
+     "waist_front": 3.1,
+     "waist_back": 2.84,
+     "waist_side_l": 3.03,
+     "waist_side_r": 3.05,
+     "buttock_point": 3.1,
+     "crotch": 2.93,
+     "knee_l": 2.48,
+     "knee_r": 2.41,
+     "ankle_l": 1.75,
+     "ankle_r": 1.67
+    }
+   }
+  },
+  "height": {
+   "<1.60": {
+    "n": 433,
+    "mean_mm": 2.819851334112468,
+    "ci95_mm": [
+     2.74026899601507,
+     2.8990502770323103
+    ],
+    "median_mm": 2.559825344506338,
+    "pck10": 99.89896073903002,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.08,
+     "cervicale": 3.48,
+     "acromion_l": 3.39,
+     "acromion_r": 3.26,
+     "bust_point_l": 2.79,
+     "bust_point_r": 2.9,
+     "waist_front": 3.11,
+     "waist_back": 2.8,
+     "waist_side_l": 3.04,
+     "waist_side_r": 3.02,
+     "buttock_point": 3.21,
+     "crotch": 2.81,
+     "knee_l": 2.42,
+     "knee_r": 2.37,
+     "ankle_l": 1.78,
+     "ankle_r": 1.67
+    }
+   },
+   "1.60-1.75": {
+    "n": 909,
+    "mean_mm": 2.9438072014286276,
+    "ci95_mm": [
+     2.8846432993770197,
+     2.9977097040047846
+    ],
+    "median_mm": 2.697501375359341,
+    "pck10": 99.8899889988999,
+    "pck20": 100.0,
+    "per_landmark_mean_mm": {
+     "vertex": 3.3,
+     "cervicale": 3.38,
+     "acromion_l": 3.55,
+     "acromion_r": 3.53,
+     "bust_point_l": 3.12,
+     "bust_point_r": 3.07,
+     "waist_front": 3.29,
+     "waist_back": 2.98,
+     "waist_side_l": 3.06,
+     "waist_side_r": 3.04,
+     "buttock_point": 3.14,
+     "crotch": 3.17,
+     "knee_l": 2.48,
+     "knee_r": 2.51,
+     "ankle_l": 1.77,
+     "ankle_r": 1.72
+    }
+   },
+   ">=1.75": {
+    "n": 658,
+    "mean_mm": 3.13488974502139,
+    "ci95_mm": [
+     3.0722870715294337,
+     3.2043392161982864
+    ],
+    "median_mm": 2.8662989770415073,
+    "pck10": 99.83852583586626,
+    "pck20": 99.99050151975683,
+    "per_landmark_mean_mm": {
+     "vertex": 3.47,
+     "cervicale": 3.53,
+     "acromion_l": 3.81,
+     "acromion_r": 3.79,
+     "bust_point_l": 3.43,
+     "bust_point_r": 3.31,
+     "waist_front": 3.5,
+     "waist_back": 3.25,
+     "waist_side_l": 3.28,
+     "waist_side_r": 3.21,
+     "buttock_point": 3.3,
+     "crotch": 3.31,
+     "knee_l": 2.64,
+     "knee_r": 2.67,
+     "ankle_l": 1.84,
+     "ankle_r": 1.84
+    }
+   }
+  }
+ },
+ "worst_bmi_band": {
+  "band": "<18.5",
+  "mean_mm": 3.3590363083557886,
+  "in_range_mean_mm": 2.691038668227327,
+  "gap_mm": 0.6679976401284615,
+  "ratio": 1.2482304130428914
+ },
+ "worst_band_any_factor": {
+  "factor": "bmi",
+  "band": "<18.5",
+  "mean_mm": 3.3590363083557886
+ }
+}

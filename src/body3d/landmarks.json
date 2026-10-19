@@ -1,0 +1,87 @@
+{
+ "model": "anny==0.6.1, default 'anny' topology (13,718 vertices)",
+ "template": "bodies.template(): all phenotypes 0.5, morphological age 35, no local controls, no pose",
+ "frame": "metres, z up, faces -y, left = +x",
+ "landmarks": [
+  {
+   "name": "vertex",
+   "index": 881,
+   "rule": "highest vertex of the head"
+  },
+  {
+   "name": "cervicale",
+   "index": 1496,
+   "rule": "most posterior midline vertex within 2 cm of the neck01 joint height (C7 proxy)"
+  },
+  {
+   "name": "acromion_l",
+   "index": 8219,
+   "rule": "highest vertex within 1.5 cm (x) / 3 cm (y) of the left shoulder joint"
+  },
+  {
+   "name": "acromion_r",
+   "index": 1557,
+   "rule": "mirror of acromion_l"
+  },
+  {
+   "name": "bust_point_l",
+   "index": 8522,
+   "rule": "most anterior non-arm vertex, x 3-20 cm, z 68-78% of stature"
+  },
+  {
+   "name": "bust_point_r",
+   "index": 1866,
+   "rule": "mirror of bust_point_l"
+  },
+  {
+   "name": "waist_front",
+   "index": 4053,
+   "rule": "front midline vertex at natural-waist height (min non-arm convex-hull perimeter, z 57-70%)"
+  },
+  {
+   "name": "waist_back",
+   "index": 4132,
+   "rule": "back midline vertex at natural-waist height"
+  },
+  {
+   "name": "waist_side_l",
+   "index": 10753,
+   "rule": "most lateral non-arm vertex within 1 cm of natural-waist height and 3 cm of mid-depth"
+  },
+  {
+   "name": "waist_side_r",
+   "index": 4126,
+   "rule": "mirror of waist_side_l"
+  },
+  {
+   "name": "buttock_point",
+   "index": 10822,
+   "rule": "most posterior non-arm vertex of the left buttock, z 40-56% (max protrusion)"
+  },
+  {
+   "name": "crotch",
+   "index": 4356,
+   "rule": "lowest midline vertex of the trunk"
+  },
+  {
+   "name": "knee_l",
+   "index": 11191,
+   "rule": "most anterior vertex within 2 cm of the knee joint height (mid-patella proxy)"
+  },
+  {
+   "name": "knee_r",
+   "index": 4589,
+   "rule": "mirror of knee_l"
+  },
+  {
+   "name": "ankle_l",
+   "index": 12954,
+   "rule": "most lateral leg vertex within 1.5 cm of the ankle joint (lateral malleolus proxy)"
+  },
+  {
+   "name": "ankle_r",
+   "index": 6373,
+   "rule": "mirror of ankle_l"
+  }
+ ]
+}

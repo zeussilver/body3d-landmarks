@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Body3d.Api/Body3d.Api.csproj" />
+    <Project Path="src/Body3d.Core/Body3d.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Body3d.Tests/Body3d.Tests.csproj" />
+  </Folder>
+</Solution>

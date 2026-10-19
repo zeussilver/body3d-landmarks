@@ -1,0 +1,167 @@
+{
+ "data": "SYNTHETIC",
+ "region": "ap-southeast-2",
+ "store": "S3 general purpose bucket (SSE-S3, public access blocked, TLS-only policy, 30-day expiry)",
+ "objects_uploaded": 24,
+ "bytes_uploaded": 32906016,
+ "put_ms": {
+  "median": 1659.36024999246,
+  "max": 1914.60495791398
+ },
+ "weeks_listed": {
+  "s1": [
+   0,
+   8,
+   16,
+   24
+  ],
+  "s2": [
+   0,
+   8,
+   16,
+   24
+  ],
+  "s3": [
+   0,
+   8,
+   16,
+   24
+  ],
+  "s4": [
+   0,
+   8,
+   16,
+   24
+  ],
+  "s5": [
+   0,
+   8,
+   16,
+   24
+  ],
+  "s6": [
+   0,
+   8,
+   16,
+   24
+  ]
+ },
+ "change_from_s3_ms": {
+  "median": 1981.0301249381155,
+  "max": 2470.58870899491
+ },
+ "girth_delta_api_vs_python_mm": {
+  "max_abs": 2.1065603535695345,
+  "mean_abs": 0.423447584229949,
+  "note": "API: clean render + C#; Python: noisy/swayed scans + PyTorch, so small differences are expected"
+ },
+ "checksums": [
+  {
+   "key": "scans/s1/week00.stl",
+   "sha256_match": true,
+   "bytes": 1371084
+  },
+  {
+   "key": "scans/s3/week08.stl",
+   "sha256_match": true,
+   "bytes": 1371084
+  },
+  {
+   "key": "scans/s6/week24.stl",
+   "sha256_match": true,
+   "bytes": 1371084
+  }
+ ],
+ "subjects": [
+  {
+   "subject": "s1",
+   "api_delta_tape_mm": {
+    "waist": -81.1,
+    "hip": -56.6,
+    "thigh": -37.4
+   },
+   "python_delta_tape_mm": {
+    "waist": -80.8,
+    "hip": -56.9,
+    "thigh": -38.0
+   },
+   "icp_rms_mm": 2.58,
+   "displacement_median_mm": -0.82
+  },
+  {
+   "subject": "s2",
+   "api_delta_tape_mm": {
+    "waist": -51.4,
+    "hip": -25.2,
+    "thigh": -34.6
+   },
+   "python_delta_tape_mm": {
+    "waist": -50.9,
+    "hip": -25.4,
+    "thigh": -34.2
+   },
+   "icp_rms_mm": 3.43,
+   "displacement_median_mm": -1.51
+  },
+  {
+   "subject": "s3",
+   "api_delta_tape_mm": {
+    "waist": -51.8,
+    "hip": -35.0,
+    "thigh": -37.0
+   },
+   "python_delta_tape_mm": {
+    "waist": -51.7,
+    "hip": -35.0,
+    "thigh": -36.9
+   },
+   "icp_rms_mm": 2.26,
+   "displacement_median_mm": -1.21
+  },
+  {
+   "subject": "s4",
+   "api_delta_tape_mm": {
+    "waist": -86.9,
+    "hip": -53.7,
+    "thigh": -35.2
+   },
+   "python_delta_tape_mm": {
+    "waist": -86.6,
+    "hip": -53.8,
+    "thigh": -35.0
+   },
+   "icp_rms_mm": 3.19,
+   "displacement_median_mm": -2.11
+  },
+  {
+   "subject": "s5",
+   "api_delta_tape_mm": {
+    "waist": -88.6,
+    "hip": -53.8,
+    "thigh": -33.8
+   },
+   "python_delta_tape_mm": {
+    "waist": -88.1,
+    "hip": -54.9,
+    "thigh": -34.4
+   },
+   "icp_rms_mm": 3.93,
+   "displacement_median_mm": -2.05
+  },
+  {
+   "subject": "s6",
+   "api_delta_tape_mm": {
+    "waist": -87.6,
+    "hip": -59.7,
+    "thigh": -37.2
+   },
+   "python_delta_tape_mm": {
+    "waist": -85.5,
+    "hip": -59.8,
+    "thigh": -37.3
+   },
+   "icp_rms_mm": 4.55,
+   "displacement_median_mm": -1.91
+  }
+ ]
+}
