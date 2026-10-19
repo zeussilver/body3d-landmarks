@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Body Change Viewer</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --ink: #1d2433; --muted: #5d6677; --line: #dde1e8;
+    --accent: #2f6fde; --warn-bg: #fff4d6; --warn-ink: #6b4e00;
+    --waist: #d1495b; --hip: #2f6fde; --thigh: #2a9d6f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11141a; --panel: #1a1e26; --ink: #e8ebf1; --muted: #9aa3b2; --line: #2c323d;
+      --accent: #6b9cf0; --warn-bg: #3a2f10; --warn-ink: #f3d27a;
+      --waist: #ef6f80; --hip: #6b9cf0; --thigh: #4cc495;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .app { display: grid; grid-template-columns: minmax(0, 1fr) 340px; height: 100vh; }
+  #view { position: relative; min-height: 320px; }
+  #view canvas { display: block; width: 100%; height: 100%; }
+  .banner { position: absolute; top: 12px; left: 12px; background: var(--warn-bg); color: var(--warn-ink);
+            padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 12px; letter-spacing: .02em; }
+  .weekbadge { position: absolute; bottom: 12px; left: 12px; font-size: 28px; font-weight: 700; opacity: .85; }
+  aside { background: var(--panel); border-left: 1px solid var(--line); padding: 16px; overflow-y: auto; }
+  h1 { font-size: 17px; margin: 0 0 2px; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin: 12px 0 4px; }
+  select, input[type=range] { width: 100%; }
+  .ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  .row { display: flex; gap: 14px; margin-top: 8px; }
+  .row label { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--ink); font-size: 13px; }
+  .legend { margin-top: 14px; }
+  .bar { height: 10px; border-radius: 5px; background: linear-gradient(90deg, #2166ac, #67a9cf, #f7f7f7, #ef8a62, #b2182b); }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .stat { border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+  .stat b { display: block; font-size: 18px; }
+  .stat span { color: var(--muted); font-size: 11px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  td, th { padding: 4px 2px; border-bottom: 1px solid var(--line); text-align: right; }
+  td:first-child, th:first-child { text-align: left; }
+  svg text { fill: var(--muted); font-size: 10px; }
+  .note { color: var(--muted); font-size: 11px; margin-top: 12px; }
+  body.capture aside { display: none; }
+  body.capture .app { grid-template-columns: 1fr; }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: 60vh auto; height: auto; }
+    aside { border-left: 0; border-top: 1px solid var(--line); padding: 16px; }
+  }
+</style>
+<script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<div class="app">
+  <div id="view">
+    <div class="banner">SYNTHETIC DATA</div>
+    <div class="weekbadge" id="weekbadge">week 0</div>
+  </div>
+  <aside>
+    <h1>Body-shape change over time</h1>
+    <div class="sub">Synthetic Anny bodies on an illustrative weight-loss curve. Not clinical data.</div>
+    <label for="subject">Subject</label>
+    <select id="subject"></select>
+    <label for="week">Scan</label>
+    <input id="week" type="range" min="0" max="3" step="1" value="0">
+    <div class="ticks" id="ticks"></div>
+    <div class="row">
+      <label><input id="colour" type="checkbox" checked> change colours</label>
+      <label><input id="ghost" type="checkbox"> week-0 outline</label>
+    </div>
+    <div class="legend">
+      <div class="bar"></div>
+      <div class="ticks"><span id="lo"></span><span>0 mm</span><span id="hi"></span></div>
+      <div class="note">Signed change along the week-0 surface normal (blue = less tissue). Arms are grey: their change is mostly pose. Faint colour on feet and shoulders comes from posture differences between visits.</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="mass">–</b><span>mesh mass (kg)</span></div>
+      <div class="stat"><b id="dmass">–</b><span>vs week 0</span></div>
+      <div class="stat"><b id="bmi">–</b><span>mesh BMI</span></div>
+      <div class="stat"><b id="height">–</b><span>stature (m)</span></div>
+    </div>
+    <label>Girth change vs week 0 (tape, mm)</label>
+    <svg id="chart" viewBox="0 0 300 150" width="100%"></svg>
+    <table id="girths"></table>
+    <div class="note">Girth heights come from landmarks the phase-1 model predicts on each simulated scan.</div>
+  </aside>
+</div>
+<script type="module" src="viewer.js"></script>
+</body>
+</html>
