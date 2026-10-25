@@ -47,7 +47,11 @@ def sample_tensors(depth: np.ndarray, lm: np.ndarray):
 
 
 class TrainScans(Dataset):
-    """Meshes from ``data.train_meshes``; every access renders a fresh scan (placement, sway, noise)."""
+    """Meshes from ``data.train_meshes``; every access re-renders the scan (placement, sway, noise).
+
+    The random draws depend on (seed, worker seed, index). Workers persist across epochs, so a body
+    cycles through at most ``workers`` perturbations instead of a new one every epoch.
+    """
 
     def __init__(self, dist: str, faces: np.ndarray, idx: np.ndarray, arm_w: np.ndarray, augment=None,
                  seed: int = 0, alt_dir=None, p_alt: float = 0.5):

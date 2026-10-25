@@ -65,8 +65,10 @@ bodies, because the thighs touch.
 Soft-argmax gives sub-pixel positions. In view θ a point lands at
 u = x·cosθ − y·sinθ, w = z, so the 3D landmark is a closed-form, differentiable,
 confidence-weighted least-squares solve, and the loss is the 3D error in mm. Training
-uses 8,000 bodies with scans rendered on the fly (fresh noise and sway every epoch),
-10 epochs on Apple MPS (46–67 min per run). Models are selected on a validation split
+uses 8,000 bodies with scans rendered on the fly, 10 epochs on Apple MPS (46–67 min per run).
+Placement, noise and sway are drawn from (run seed, DataLoader worker seed, body index), and the
+8 workers persist across epochs, so each body cycles through at most 8 perturbations rather than
+getting a new one every epoch. Models are selected on a validation split
 from the same distribution as training, and the test set is scored once.
 
 **Evaluation** ([`evaluate.py`](src/body3d/evaluate.py)): per-landmark error,

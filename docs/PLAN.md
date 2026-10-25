@@ -310,7 +310,8 @@ metrics, 1,000-sample subject-level bootstrap CIs, worst band, gap to the 18.5�
 ### 2026-10-18 — P1c done (E0, E1, seed 0)
 Built `model.py` (shared per-view U-Net, 1.96 M parameters, heatmaps + per-view confidence,
 soft-argmax, closed-form weighted least-squares triangulation) and `train.py` (scans
-rendered on the fly with fresh placement and noise every epoch; model selection on the
+rendered on the fly (placement and noise depend on worker and body index, so at most 8
+variants per body; see the 2026-10-25 note); model selection on the
 validation split of the same distribution; test scored once). 29 pytest tests green.
 
 - Training: 10 epochs × 1,000 steps of 8 bodies, AdamW + one-cycle (max lr 2e-3), MPS.
@@ -517,3 +518,11 @@ fixtures; ONNX vs PyTorch outputs differ by at most 1.0e-5.
   (E2 ✘, explained), A5 ✔, A6 ✔, A7 ✔, A8 ✔.
 - Published: code (MIT) on `main`, the viewer demo on the `gh-pages` branch (GitHub Pages),
   trained weights and the ONNX model as Release v0.1 assets with SHA-256 checksums.
+
+### 2026-10-25 — wording fix: training perturbations
+- A review found that README and this plan said each epoch gets fresh noise and sway. The
+  dataset seeds its generator with (seed, `torch.initial_seed()`, index), and the DataLoader
+  uses 8 persistent workers, so a body repeats the draw whenever it lands on the same worker:
+  at most 8 perturbations per body over 10 epochs. Wording corrected in README, this plan and
+  the `TrainScans` docstring. The code and all results are unchanged; they were produced by
+  this behaviour. Adding the epoch to the seed would need every run retrained.
