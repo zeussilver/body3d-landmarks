@@ -1,0 +1,246 @@
+{
+ "model": "open_clip ViT-B-32 / laion2b_s34b_b79k (frozen)",
+ "device": "mps",
+ "embed_ms_per_scan": 30.8,
+ "probe_C": 0.01,
+ "zero_shot_test": {
+  "n": 250,
+  "accuracy": 0.2,
+  "accuracy_ci95": [
+   0.156,
+   0.252
+  ],
+  "macro_f1": 0.06666666666666668,
+  "per_class": {
+   "ok": {
+    "recall": 1.0,
+    "precision": 0.2,
+    "f1": 0.33333333333333337
+   },
+   "arms_down": {
+    "recall": 0.0,
+    "precision": 0.0,
+    "f1": 0.0
+   },
+   "moved": {
+    "recall": 0.0,
+    "precision": 0.0,
+    "f1": 0.0
+   },
+   "cropped": {
+    "recall": 0.0,
+    "precision": 0.0,
+    "f1": 0.0
+   },
+   "dropout": {
+    "recall": 0.0,
+    "precision": 0.0,
+    "f1": 0.0
+   }
+  },
+  "rescan": {
+   "failures_caught": 0.0,
+   "false_alarms_on_ok": 0.0
+  },
+  "invalid_answers": 0,
+  "confusion": {
+   "rows_true_cols_pred": [
+    "ok",
+    "arms_down",
+    "moved",
+    "cropped",
+    "dropout",
+    "invalid"
+   ],
+   "matrix": [
+    [
+     50,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     50,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     50,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     50,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     50,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   ]
+  }
+ },
+ "probe_full_dev_test": {
+  "n": 250,
+  "accuracy": 0.864,
+  "accuracy_ci95": [
+   0.82,
+   0.904
+  ],
+  "macro_f1": 0.8656294648671936,
+  "per_class": {
+   "ok": {
+    "recall": 0.74,
+    "precision": 0.6981132075471698,
+    "f1": 0.7184466019417476
+   },
+   "arms_down": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+   },
+   "moved": {
+    "recall": 0.74,
+    "precision": 0.7115384615384616,
+    "f1": 0.7254901960784313
+   },
+   "cropped": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+   },
+   "dropout": {
+    "recall": 0.84,
+    "precision": 0.9333333333333333,
+    "f1": 0.8842105263157894
+   }
+  },
+  "rescan": {
+   "failures_caught": 0.92,
+   "false_alarms_on_ok": 0.26
+  },
+  "invalid_answers": 0,
+  "confusion": {
+   "rows_true_cols_pred": [
+    "ok",
+    "arms_down",
+    "moved",
+    "cropped",
+    "dropout",
+    "invalid"
+   ],
+   "matrix": [
+    [
+     37,
+     0,
+     12,
+     0,
+     1,
+     0
+    ],
+    [
+     0,
+     50,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     11,
+     0,
+     37,
+     0,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     50,
+     0,
+     0
+    ],
+    [
+     5,
+     0,
+     3,
+     0,
+     42,
+     0
+    ]
+   ]
+  }
+ },
+ "probe_learning_curve_test": {
+  "5": {
+   "accuracy_mean": 0.6384000000000001,
+   "accuracy_sd": 0.017269626515938337,
+   "macro_f1_mean": 0.6278174953385331,
+   "draws": 5
+  },
+  "10": {
+   "accuracy_mean": 0.7048,
+   "accuracy_sd": 0.029761720380381242,
+   "macro_f1_mean": 0.7079923194856872,
+   "draws": 5
+  },
+  "20": {
+   "accuracy_mean": 0.7431999999999999,
+   "accuracy_sd": 0.013717142559585808,
+   "macro_f1_mean": 0.7448980387820469,
+   "draws": 5
+  },
+  "50": {
+   "accuracy_mean": 0.8248,
+   "accuracy_sd": 0.016666133324799704,
+   "macro_f1_mean": 0.8260140749595488,
+   "draws": 5
+  },
+  "100": {
+   "accuracy_mean": 0.864,
+   "accuracy_sd": 0.0,
+   "macro_f1_mean": 0.8656294648671936,
+   "draws": 1
+  }
+ },
+ "prompts": {
+  "ok": [
+   "eight depth images of a person standing still with arms held away from the body",
+   "a complete body scan of a person in an A-pose, every view clear"
+  ],
+  "arms_down": [
+   "eight depth images of a person standing with arms pressed against the sides of the body",
+   "a body scan where the arms hang down touching the torso"
+  ],
+  "moved": [
+   "eight depth images where the person turned or moved between views",
+   "a body scan where some views show the person facing a different direction than expected"
+  ],
+  "cropped": [
+   "eight depth images where part of the person is cut off at the edge of the image",
+   "a body scan where the person stands off-centre and leaves the frame"
+  ],
+  "dropout": [
+   "eight depth images where one view is blank or has a large missing region",
+   "a body scan with a black empty panel or a big hole in the body"
+  ]
+ }
+}

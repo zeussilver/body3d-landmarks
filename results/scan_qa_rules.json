@@ -1,0 +1,234 @@
+{
+ "method": "rules (turntable geometry), thresholds tuned on dev",
+ "thresholds": {
+  "cropped:border_px>": 22.200000000000728,
+  "dropout:hole_px>": 664.6499999999967,
+  "dropout:drop_asym>": 0.15092908254524448,
+  "moved:move_sym>": 0.1347179390661479,
+  "arms_down:arm_gap<": 0.7549324324324326
+ },
+ "dev": {
+  "n": 500,
+  "accuracy": 0.974,
+  "accuracy_ci95": [
+   0.96,
+   0.986
+  ],
+  "macro_f1": 0.9738825346829844,
+  "per_class": {
+   "ok": {
+    "recall": 1.0,
+    "precision": 0.9174311926605505,
+    "f1": 0.9569377990430622
+   },
+   "arms_down": {
+    "recall": 0.99,
+    "precision": 1.0,
+    "f1": 0.9949748743718593
+   },
+   "moved": {
+    "recall": 0.98,
+    "precision": 0.98,
+    "f1": 0.98
+   },
+   "cropped": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+   },
+   "dropout": {
+    "recall": 0.9,
+    "precision": 0.9782608695652174,
+    "f1": 0.9375
+   }
+  },
+  "rescan": {
+   "failures_caught": 0.9775,
+   "false_alarms_on_ok": 0.0
+  },
+  "invalid_answers": 0,
+  "confusion": {
+   "rows_true_cols_pred": [
+    "ok",
+    "arms_down",
+    "moved",
+    "cropped",
+    "dropout",
+    "invalid"
+   ],
+   "matrix": [
+    [
+     100,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     99,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     98,
+     0,
+     2,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     100,
+     0,
+     0
+    ],
+    [
+     8,
+     0,
+     2,
+     0,
+     90,
+     0
+    ]
+   ]
+  }
+ },
+ "test": {
+  "n": 250,
+  "accuracy": 0.968,
+  "accuracy_ci95": [
+   0.944,
+   0.988
+  ],
+  "macro_f1": 0.9681440989659972,
+  "per_class": {
+   "ok": {
+    "recall": 0.98,
+    "precision": 0.9245283018867925,
+    "f1": 0.9514563106796116
+   },
+   "arms_down": {
+    "recall": 0.96,
+    "precision": 0.9795918367346939,
+    "f1": 0.9696969696969697
+   },
+   "moved": {
+    "recall": 0.94,
+    "precision": 1.0,
+    "f1": 0.9690721649484536
+   },
+   "cropped": {
+    "recall": 1.0,
+    "precision": 1.0,
+    "f1": 1.0
+   },
+   "dropout": {
+    "recall": 0.96,
+    "precision": 0.9411764705882353,
+    "f1": 0.9504950495049505
+   }
+  },
+  "rescan": {
+   "failures_caught": 0.98,
+   "false_alarms_on_ok": 0.02
+  },
+  "invalid_answers": 0,
+  "confusion": {
+   "rows_true_cols_pred": [
+    "ok",
+    "arms_down",
+    "moved",
+    "cropped",
+    "dropout",
+    "invalid"
+   ],
+   "matrix": [
+    [
+     49,
+     1,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     2,
+     48,
+     0,
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     47,
+     0,
+     3,
+     0
+    ],
+    [
+     0,
+     0,
+     0,
+     50,
+     0,
+     0
+    ],
+    [
+     2,
+     0,
+     0,
+     0,
+     48,
+     0
+    ]
+   ]
+  }
+ },
+ "ms_per_scan_cpu": 63.5,
+ "feature_means_by_class_dev": {
+  "ok": {
+   "border_px": 2.04,
+   "hole_px": 94.65,
+   "drop_asym": 0.0015,
+   "move_sym": 0.0643,
+   "arm_gap": 0.9605
+  },
+  "arms_down": {
+   "border_px": 0.0,
+   "hole_px": 92.98,
+   "drop_asym": 0.007,
+   "move_sym": 0.054,
+   "arm_gap": 0.153
+  },
+  "moved": {
+   "border_px": 3.41,
+   "hole_px": 240.45,
+   "drop_asym": 0.0191,
+   "move_sym": 0.3091,
+   "arm_gap": 0.9441
+  },
+  "cropped": {
+   "border_px": 170.09,
+   "hole_px": 92.07,
+   "drop_asym": 0.0056,
+   "move_sym": 0.0634,
+   "arm_gap": 0.8191
+  },
+  "dropout": {
+   "border_px": 1.99,
+   "hole_px": 117.52,
+   "drop_asym": 0.5991,
+   "move_sym": 0.0684,
+   "arm_gap": 0.9489
+  }
+ }
+}

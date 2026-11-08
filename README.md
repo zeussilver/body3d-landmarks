@@ -2,7 +2,9 @@
 
 Landmark detection and body-shape change tracking on 3D body scans, built around two
 problems a 3D body-scanning company faces: **landmarks that stay accurate across body
-types**, and **showing how a body changes over time** from mesh/STL scans.
+types**, and **showing how a body changes over time** from mesh/STL scans. A third part,
+a **scan quality check**, compares geometry rules with an open vision-language model (CLIP)
+and Claude on accuracy, reliability, latency and cost ([below](#scan-quality-check-geometry-rules-vs-clip-vs-claude)).
 
 > **All data here is synthetic.** Bodies come from the open [Anny](https://github.com/naver/anny)
 > parametric model, and the scanner is simulated (turntable depth camera with invented noise
@@ -117,6 +119,94 @@ visit, and is exported as binary STL ([own reader/writer](src/body3d/stl.py)).
   SHA-256 checksums verified, and girth changes computed from S3 within 0.42 mm (mean) of
   the Python pipeline.
 
+## Scan quality check: geometry rules vs CLIP vs Claude
+
+A bad scan should be caught while the person is still on the turntable.
+[`qa.py`](src/body3d/qa.py) injects four failures into the simulated capture, so every
+label is exact:
+
+- **arms_down**: arms lowered 38–48° onto the torso;
+- **moved**: a 20–35° turn and a 5–10 cm step during 2–3 consecutive views;
+- **cropped**: standing 45–58 cm off centre, pushed further until the body really leaves
+  the image;
+- **dropout**: a blank frame, an occluded band or a large patch in 1–2 views.
+
+`ok` scans use the same noise and sway as above. There are 500 dev scans and 250 test scans
+(50 per class), each with new bodies.
+
+![One scan per class, as every method sees it](results/scan_qa_examples.png)
+
+**Why it matters.** E0 is off by 2.78 mm on `ok` test scans. On the failure classes it is
+off by 21.9 mm (arms_down), 33.4 mm (moved), 47.7 mm (cropped) and 17.9 mm (dropout)
+([`results/scan_qa_landmarks.json`](results/scan_qa_landmarks.json)). Every failure type
+ruins the measurement.
+
+**Results on the 250 test scans** ([`results/scan_qa_summary.json`](results/scan_qa_summary.json)).
+"Failures caught" and "false alarms" count any answer other than `ok` as "rescan".
+
+| method | labels used | accuracy | failures caught | false alarms on ok | time / scan | $ / 1,000 scans |
+|---|---|---|---|---|---|---|
+| Rules (turntable geometry) | 500 dev scans set 5 thresholds | **0.968** (95% CI 0.944–0.988) | 0.98 | 0.02 | 64 ms, CPU | 0 |
+| CLIP ViT-B/32, zero-shot | none | 0.200 | 0.00 | 0.00 | 31 ms, MPS | 0 |
+| CLIP + linear probe | 20 per class | 0.743 ± 0.014 | | | 31 ms, MPS | 0 |
+| CLIP + linear probe | 100 per class | 0.864 | 0.92 | 0.26 | 31 ms, MPS | 0 |
+| Claude Haiku 4.5, zero-shot | none | 0.368 | 0.85 | 0.82 | 17 s (p50) | 1.24 |
+| Claude Sonnet 5.5, zero-shot, effort low | none | 0.388 | 0.82 | 0.70 | 16 s (p50) | 2.72 |
+
+The costlier Claude runs used only the first 100 test scans (20/20/20/19/21 per class).
+On those scans:
+
+| method | accuracy | $ / 1,000 scans |
+|---|---|---|
+| Rules | 0.960 | 0 |
+| Sonnet 5.5, zero-shot | 0.440 | 2.72 |
+| Sonnet 5.5, one dev example per class | 0.430 | 7.55 |
+| Opus 5.5, zero-shot | 0.380 | 57.84 |
+
+- **The rules use physics, not learning.** The camera is orthographic, so if the person
+  stood still, view k and view k+4 (180° later) are exact mirror images. The rules check:
+  - **dropout**: a view is a cut-down copy of its mirror partner;
+  - **moved**: two views each have body the other lacks;
+  - **cropped**: body pixels touch the image edge;
+  - **arms_down**: no view shows a gap between arm and torso at chest-to-hip height.
+
+  The first version took a hand resting on the hip, which encloses a hole, for a dropout.
+  Counting only the parts of a hole that the opposite view sees as body fixed it.
+- **CLIP zero-shot calls every scan `ok`.** Its image–text alignment does not transfer to
+  synthetic depth renders. A linear probe on its frozen per-view embeddings does learn:
+  0.64 with 5 labels per class, 0.86 with 100. It cannot check whether views agree with
+  each other, though, so it confuses `ok` with `moved` and would send back 26% of good scans.
+- **Claude scores 0.37–0.44 at every model size, against 0.97 for the rules** (chance is
+  0.20). Its stated reasons show three repeated mistakes:
+  - it reads an orthographic 45° view as "frontal" and calls good scans `moved`;
+  - it calls the sensor's normal small holes "large patches" (`dropout`);
+  - it misses arms resting against the torso.
+
+  It spots a blank frame reliably (dropout recall 0.94). An off-centre subject drifts
+  sideways from view to view, so it calls 30 of 50 `cropped` scans `moved`. One example per
+  class did not help, and neither did the larger model: Opus cost 21× as much as Sonnet and
+  scored 0.38. Asked 3 times, Sonnet gave the same label every time for only 40% of scans.
+- **Decision: the geometry rules are the gate.** They are the most accurate and
+  deterministic, take 64 ms, need labels only to set thresholds, and cost nothing to run.
+  A VLM earns its cost only for open-ended problems the rules do not encode (a second person
+  in frame, the wrong subject), and only once it beats this baseline.
+
+**Method notes.**
+
+- Rule thresholds and the probe's regularisation were set on the dev split only.
+- The rule features were developed by looking at the errors on a first test split. That
+  split was then replaced by a fresh one (new seed) before anything was scored on it. Every
+  test number above comes from the fresh split.
+- Each Claude call is recorded in [`results/qa_vlm/`](results/qa_vlm): label, reason,
+  latency, tokens and the model served. `python -m body3d.qa_vlm score` recomputes every
+  number without calling the API.
+- Claude was called through a third-party Anthropic-compatible relay, so the latencies
+  include the relay.
+- Costs are list prices from the recorded token counts, with no prompt-cache discount. The
+  relay's cache counts covered the per-scan image too, so they were not trusted.
+- The few-shot examples are the first dev scan of each class. Their notes only restate the
+  class definitions.
+
 ## Reproduce
 
 ```bash
@@ -130,7 +220,14 @@ uv run python -m body3d.change                   # trajectories, change maps, vi
 uv run python -m http.server 8790 --directory viewer
 uv run python -m body3d.export && (cd dotnet && dotnet test)
 (cd dotnet && dotnet run --project src/Body3d.Api)  # then POST an STL (mm, z up) to /scans/girths
-uv run pytest                                    # 44 tests
+uv sync --group qa                               # scan check: CLIP, scikit-learn, Anthropic SDK
+uv run python -m body3d.qa                       # dev/test scans with injected failures
+uv run python -m body3d.qa_rules                 # geometry rules (thresholds from dev)
+uv run python -m body3d.qa_clip                  # CLIP zero-shot + linear probe
+uv run python -m body3d.qa_vlm run --model claude-sonnet-5-5 --repeats 3   # calls the Claude API
+uv run python -m body3d.qa_vlm score             # re-scores the recorded calls, no API
+uv run python -m body3d.qa_report impact && uv run python -m body3d.qa_report summary
+uv run pytest                                    # 59 tests (3 skip without the qa group)
 ```
 
 ## Limitations
@@ -141,6 +238,10 @@ uv run pytest                                    # 44 tests
 - Fixed-vertex landmarks can drift from where a human measurer would place them on very
   large bodies. Orthographic cameras are a simplification.
 - The weight-loss trajectories are illustrative only and are not clinical data.
+- The scan failures are simulated, and the rules were designed with the simulator's
+  geometry in view. Real failures (motion blur, partial occlusion by an operator, mixed
+  failures) would test them harder. Claude was tried with one prompt at low effort; a more
+  geometric prompt or a higher effort might do better, but would also cost more.
 
 ## Credits
 

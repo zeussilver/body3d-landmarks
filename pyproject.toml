@@ -19,6 +19,11 @@ dev = [
     "pytest>=8",
     "rtree>=1.3",
 ]
+qa = [
+    "anthropic>=1.0",
+    "open-clip-torch>=3.0",
+    "scikit-learn>=1.5",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -29,3 +34,7 @@ packages = ["src/body3d"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv]
+# Only resolve releases at least two weeks old at the time the qa group was added.
+exclude-newer = "2026-10-25T00:00:00Z"
