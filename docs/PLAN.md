@@ -526,3 +526,28 @@ fixtures; ONNX vs PyTorch outputs differ by at most 1.0e-5.
   at most 8 perturbations per body over 10 epochs. Wording corrected in README, this plan and
   the `TrainScans` docstring. The code and all results are unchanged; they were produced by
   this behaviour. Adding the epoch to the seed would need every run retrained.
+
+### 2026-11-08 — P5: scan quality check (rules vs CLIP vs Claude)
+- Question: can the scanner tell, before the subject steps off, that a scan must be redone,
+  and what does each kind of method cost? `qa.py` injects four failures into the simulated
+  capture (arms_down, moved, cropped, dropout); `ok` scans use the standard noise and sway.
+  Dev 500 scans (seed 404), test 250 (seed 606), 50 per class. `cropped` is enforced: the
+  subject is moved further out until body pixels really reach the image edge.
+- Impact: E0 is 2.78 mm on `ok` test scans and 17.9–47.7 mm on the four failure classes.
+- Rules (`qa_rules.py`): orthographic opposite views are mirror images, so dropout, moved,
+  cropped and arms_down each have a geometric test; 5 thresholds by coordinate search on dev.
+  Test 0.968 (CI 0.944–0.988), 98% of failures caught, 2% false alarms, 64 ms per scan.
+- Test-split hygiene: the rule features were revised after reading errors on a first test
+  split (seed 505): a hand on the hip enclosed a hole that read as dropout; two opposite
+  blank views escaped the pair comparison; a turned subject's area loss read as dropout.
+  That split was then replaced (seed 606) before any further scoring.
+- CLIP ViT-B/32 (LAION-2B, safetensors weights): zero-shot labels every scan `ok` (0.200).
+  Linear probe on 8 frozen per-view embeddings: 0.64 / 0.71 / 0.74 / 0.83 / 0.86 with
+  5 / 10 / 20 / 50 / 100 labels per class; 26% false alarms (ok vs moved).
+- Claude through a third-party relay (it does not serve Haiku 5.5, so Haiku 4.5 was used):
+  Haiku 4.5 0.368 and Sonnet 5.5 0.388 on all 250; on the first 100, Sonnet 0.440, Sonnet
+  with one dev example per class 0.430, Opus 5.5 0.380 at $57.84 per 1,000 scans. Sonnet
+  gave the same label in all 3 repeats for 40% of 100 scans. Opus ran on 100 scans only
+  because its thinking tokens put the full split over the budget set for this experiment.
+- Decision recorded in the README: rules are the gate; a VLM is not worth its cost here.
+- pytest 59 passed (15 new).

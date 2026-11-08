@@ -1,0 +1,333 @@
+{
+ "test_all": [
+  {
+   "method": "Rules (turntable geometry)",
+   "labels_used": "500 dev scans set 5 thresholds",
+   "n": 250,
+   "accuracy": 0.968,
+   "accuracy_ci95": [
+    0.944,
+    0.988
+   ],
+   "macro_f1": 0.9681440989659972,
+   "failures_caught": 0.98,
+   "false_alarms_on_ok": 0.02,
+   "recall": {
+    "ok": 0.98,
+    "arms_down": 0.96,
+    "moved": 0.94,
+    "cropped": 1.0,
+    "dropout": 0.96
+   },
+   "time_per_scan": "64 ms (CPU)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP ViT-B/32 zero-shot",
+   "labels_used": "none",
+   "n": 250,
+   "accuracy": 0.2,
+   "accuracy_ci95": [
+    0.156,
+    0.252
+   ],
+   "macro_f1": 0.06666666666666668,
+   "failures_caught": 0.0,
+   "false_alarms_on_ok": 0.0,
+   "recall": {
+    "ok": 1.0,
+    "arms_down": 0.0,
+    "moved": 0.0,
+    "cropped": 0.0,
+    "dropout": 0.0
+   },
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP + linear probe",
+   "labels_used": "10 per class (50)",
+   "accuracy": 0.7048,
+   "accuracy_sd": 0.029761720380381242,
+   "macro_f1": 0.7079923194856872,
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP + linear probe",
+   "labels_used": "20 per class (100)",
+   "accuracy": 0.7431999999999999,
+   "accuracy_sd": 0.013717142559585808,
+   "macro_f1": 0.7448980387820469,
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP + linear probe",
+   "labels_used": "100 per class (500)",
+   "n": 250,
+   "accuracy": 0.864,
+   "accuracy_ci95": [
+    0.82,
+    0.904
+   ],
+   "macro_f1": 0.8656294648671936,
+   "failures_caught": 0.92,
+   "false_alarms_on_ok": 0.26,
+   "recall": {
+    "ok": 0.74,
+    "arms_down": 1.0,
+    "moved": 0.74,
+    "cropped": 1.0,
+    "dropout": 0.84
+   },
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "claude-haiku-4-5-20251001 zero-shot",
+   "labels_used": "none",
+   "n": 250,
+   "accuracy": 0.368,
+   "accuracy_ci95": [
+    0.308,
+    0.428
+   ],
+   "macro_f1": 0.28978139554658844,
+   "failures_caught": 0.85,
+   "false_alarms_on_ok": 0.82,
+   "recall": {
+    "ok": 0.18,
+    "arms_down": 0.14,
+    "moved": 0.58,
+    "cropped": 0.0,
+    "dropout": 0.94
+   },
+   "time_per_scan": "17 s p50 / 37 s p95 (API)",
+   "usd_per_1000_scans": "1.24",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-haiku-4-5-20251001"
+   ]
+  },
+  {
+   "method": "claude-sonnet-5-5 zero-shot, effort low",
+   "labels_used": "none",
+   "n": 250,
+   "accuracy": 0.388,
+   "accuracy_ci95": [
+    0.332,
+    0.448
+   ],
+   "macro_f1": 0.3220405392611124,
+   "failures_caught": 0.82,
+   "false_alarms_on_ok": 0.7,
+   "recall": {
+    "ok": 0.3,
+    "arms_down": 0.16,
+    "moved": 0.52,
+    "cropped": 0.02,
+    "dropout": 0.94
+   },
+   "time_per_scan": "16 s p50 / 41 s p95 (API)",
+   "usd_per_1000_scans": "2.72",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-sonnet-5-5"
+   ],
+   "accuracy_per_repeat": [
+    0.44,
+    0.43,
+    0.41
+   ],
+   "same_label_all_repeats": 0.4,
+   "repeat_n": 3,
+   "repeat_scans": 100,
+   "majority_vote_accuracy": 0.43
+  }
+ ],
+ "test_first_100": [
+  {
+   "method": "Rules (turntable geometry)",
+   "labels_used": "500 dev scans set 5 thresholds",
+   "n": 100,
+   "accuracy": 0.96,
+   "accuracy_ci95": [
+    0.92,
+    0.99
+   ],
+   "macro_f1": 0.9608681811864186,
+   "failures_caught": 0.975,
+   "false_alarms_on_ok": 0.0,
+   "recall": {
+    "ok": 1.0,
+    "arms_down": 0.95,
+    "moved": 0.9,
+    "cropped": 1.0,
+    "dropout": 0.9523809523809523
+   },
+   "time_per_scan": "64 ms (CPU)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP ViT-B/32 zero-shot",
+   "labels_used": "none",
+   "n": 100,
+   "accuracy": 0.2,
+   "accuracy_ci95": [
+    0.12,
+    0.29
+   ],
+   "macro_f1": 0.06666666666666668,
+   "failures_caught": 0.0,
+   "false_alarms_on_ok": 0.0,
+   "recall": {
+    "ok": 1.0,
+    "arms_down": 0.0,
+    "moved": 0.0,
+    "cropped": 0.0,
+    "dropout": 0.0
+   },
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "CLIP + linear probe",
+   "labels_used": "100 per class (500)",
+   "n": 100,
+   "accuracy": 0.82,
+   "accuracy_ci95": [
+    0.74975,
+    0.89
+   ],
+   "macro_f1": 0.823658536585366,
+   "failures_caught": 0.9,
+   "false_alarms_on_ok": 0.35,
+   "recall": {
+    "ok": 0.65,
+    "arms_down": 1.0,
+    "moved": 0.65,
+    "cropped": 1.0,
+    "dropout": 0.8095238095238095
+   },
+   "time_per_scan": "31 ms (MPS)",
+   "usd_per_1000_scans": "0"
+  },
+  {
+   "method": "claude-haiku-4-5-20251001 zero-shot",
+   "labels_used": "none",
+   "n": 100,
+   "accuracy": 0.4,
+   "accuracy_ci95": [
+    0.31,
+    0.49
+   ],
+   "macro_f1": 0.28909102807407894,
+   "failures_caught": 0.825,
+   "false_alarms_on_ok": 0.85,
+   "recall": {
+    "ok": 0.15,
+    "arms_down": 0.05,
+    "moved": 0.75,
+    "cropped": 0.0,
+    "dropout": 1.0
+   },
+   "time_per_scan": "17 s p50 / 37 s p95 (API)",
+   "usd_per_1000_scans": "1.24",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-haiku-4-5-20251001"
+   ]
+  },
+  {
+   "method": "claude-opus-5-5 zero-shot, effort low",
+   "labels_used": "none",
+   "n": 100,
+   "accuracy": 0.38,
+   "accuracy_ci95": [
+    0.29,
+    0.48
+   ],
+   "macro_f1": 0.27996151996152,
+   "failures_caught": 0.825,
+   "false_alarms_on_ok": 0.95,
+   "recall": {
+    "ok": 0.05,
+    "arms_down": 0.1,
+    "moved": 0.8,
+    "cropped": 0.0,
+    "dropout": 0.9047619047619048
+   },
+   "time_per_scan": "22 s p50 / 50 s p95 (API)",
+   "usd_per_1000_scans": "57.84",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-opus-5-5"
+   ]
+  },
+  {
+   "method": "claude-sonnet-5-5 1 example per class, effort low",
+   "labels_used": "5 dev examples in the prompt",
+   "n": 100,
+   "accuracy": 0.43,
+   "accuracy_ci95": [
+    0.33,
+    0.52
+   ],
+   "macro_f1": 0.4085106397850026,
+   "failures_caught": 0.6375,
+   "false_alarms_on_ok": 0.55,
+   "recall": {
+    "ok": 0.45,
+    "arms_down": 0.1,
+    "moved": 0.35,
+    "cropped": 0.21052631578947367,
+    "dropout": 1.0
+   },
+   "time_per_scan": "14 s p50 / 55 s p95 (API)",
+   "usd_per_1000_scans": "7.55",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-sonnet-5-5"
+   ]
+  },
+  {
+   "method": "claude-sonnet-5-5 zero-shot, effort low",
+   "labels_used": "none",
+   "n": 100,
+   "accuracy": 0.44,
+   "accuracy_ci95": [
+    0.34,
+    0.55
+   ],
+   "macro_f1": 0.3780060276574508,
+   "failures_caught": 0.8,
+   "false_alarms_on_ok": 0.6,
+   "recall": {
+    "ok": 0.4,
+    "arms_down": 0.2,
+    "moved": 0.55,
+    "cropped": 0.05263157894736842,
+    "dropout": 0.9523809523809523
+   },
+   "time_per_scan": "16 s p50 / 41 s p95 (API)",
+   "usd_per_1000_scans": "2.72",
+   "endpoint": [
+    "relay"
+   ],
+   "models_served": [
+    "claude-sonnet-5-5"
+   ]
+  }
+ ]
+}
