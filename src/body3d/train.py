@@ -5,7 +5,8 @@
     python -m body3d.train --cond e2 --seed 0    # e1 + normal-offset inflation
     python -m body3d.train --cond e3 --seed 0    # e1 + shape-space extrapolation
 
-Training scans are rendered on the fly (new placement, sway and sensor noise every epoch).
+Training scans are rendered on the fly. Placement, sway and sensor noise depend on (seed, worker
+seed, index), so each body cycles through at most ``--workers`` perturbations (see TrainScans).
 Model selection uses the validation split of the same distribution; the test split is
 scored once, with the best-validation checkpoint.
 """
